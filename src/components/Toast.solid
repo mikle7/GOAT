@@ -1,0 +1,27 @@
+import { createSignal } from "solid-js";
+
+function Toast() {
+  const [toastMessage, setToastMessage] = createSignal("");
+
+  const sendToast = (message) => {
+    setToastMessage(message);
+    setTimeout(() => {
+      setToastMessage("");
+    }, 3000);
+  };
+
+  return (
+    <div id="toastId">
+      {toastMessage() && (
+        <div class="toast">
+          {toastMessage()}
+        </div>
+      )}
+      <button onClick={() => sendToast("This is a toast message!")}>
+        Send Toast
+      </button>
+    </div>
+  );
+}
+
+export default Toast;

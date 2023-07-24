@@ -1,0 +1,82 @@
+/* src/styles/components.css */
+
+/* User Management */
+.user-management {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Toast */
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* SMS */
+.sms {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Credit Account */
+.credit-account {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* KYC Documents */
+.kyc-documents {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Finance */
+.finance {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Activity */
+.activity {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Summary */
+.summary {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Products */
+.products {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Games */
+.games {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Admin */
+.admin {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}

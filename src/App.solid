@@ -1,0 +1,47 @@
+import { createSignal } from "solid-js";
+import UserManagement from "./components/UserManagement.solid";
+import Toast from "./components/Toast.solid";
+import SMS from "./components/SMS.solid";
+import CreditAccount from "./components/CreditAccount.solid";
+import KYCDocuments from "./components/KYCDocuments.solid";
+import Finance from "./components/Finance.solid";
+import Activity from "./components/Activity.solid";
+import Summary from "./components/Summary.solid";
+import Products from "./components/Products.solid";
+import Games from "./components/Games.solid";
+import Admin from "./components/Admin.solid";
+
+function App() {
+  const [selectedTab, setSelectedTab] = createSignal("userManagement");
+
+  return (
+    <div>
+      <nav>
+        <button onClick={() => setSelectedTab("userManagement")}>User Management</button>
+        <button onClick={() => setSelectedTab("toast")}>Toast</button>
+        <button onClick={() => setSelectedTab("sms")}>SMS</button>
+        <button onClick={() => setSelectedTab("creditAccount")}>Credit Account</button>
+        <button onClick={() => setSelectedTab("kycDocuments")}>KYC Documents</button>
+        <button onClick={() => setSelectedTab("finance")}>Finance</button>
+        <button onClick={() => setSelectedTab("activity")}>Activity</button>
+        <button onClick={() => setSelectedTab("summary")}>Summary</button>
+        <button onClick={() => setSelectedTab("products")}>Products</button>
+        <button onClick={() => setSelectedTab("games")}>Games</button>
+        <button onClick={() => setSelectedTab("admin")}>Admin</button>
+      </nav>
+      {selectedTab() === "userManagement" && <UserManagement />}
+      {selectedTab() === "toast" && <Toast />}
+      {selectedTab() === "sms" && <SMS />}
+      {selectedTab() === "creditAccount" && <CreditAccount />}
+      {selectedTab() === "kycDocuments" && <KYCDocuments />}
+      {selectedTab() === "finance" && <Finance />}
+      {selectedTab() === "activity" && <Activity />}
+      {selectedTab() === "summary" && <Summary />}
+      {selectedTab() === "products" && <Products />}
+      {selectedTab() === "games" && <Games />}
+      {selectedTab() === "admin" && <Admin />}
+    </div>
+  );
+}
+
+export default App;

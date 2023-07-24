@@ -1,0 +1,48 @@
+import { createSignal } from "solid-js";
+import { productsService } from "../services/productsService";
+
+const Products = () => {
+  const [products, setProducts] = createSignal([]);
+  const [newProduct, setNewProduct] = createSignal("");
+  const [newCampaign, setNewCampaign] = createSignal("");
+  const [newSpecialOffer, setNewSpecialOffer] = createSignal("");
+
+  const fetchProducts = async () => {
+    const response = await productsService.getProducts();
+    setProducts(response.data);
+  };
+
+  const createProduct = async () => {
+    await productsService.createProduct(newProduct());
+    fetchProducts();
+  };
+
+  const createCampaign = async () => {
+    await productsService.createCampaign(newCampaign());
+    fetchProducts();
+  };
+
+  const createSpecialOffer = async () => {
+    await productsService.createSpecialOffer(newSpecialOffer());
+    fetchProducts();
+  };
+
+  return (
+    <>
+      <h1>Products</h1>
+      <input type="text" value={newProduct()} onInput={(e) => setNewProduct(e.target.value)} placeholder="New Product" />
+      <button onClick={createProduct}>Create Product</button>
+      <input type="text" value={newCampaign()} onInput={(e) => setNewCampaign(e.target.value)} placeholder="New Campaign" />
+      <button onClick={createCampaign}>Create Campaign</button>
+      <input type="text" value={newSpecialOffer()} onInput={(e) => setNewSpecialOffer(e.target.value)} placeholder="New Special Offer" />
+      <button onClick={createSpecialOffer}>Create Special Offer</button>
+      <ul>
+        {products().map((product) => (
+          <li key={product.id}>{product.name}</li>
+        ))}
+      </ul>
+    </>
+  );
+};
+
+export default Products;

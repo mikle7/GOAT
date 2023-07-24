@@ -1,0 +1,41 @@
+import { createSignal } from "solid-js";
+import { dynamicContent, featureToggles, userTags } from "../services/adminService";
+
+const Admin = () => {
+  const [content, setContent] = createSignal("");
+  const [toggle, setToggle] = createSignal(false);
+  const [tags, setTags] = createSignal([]);
+
+  const handleDynamicContent = async () => {
+    const result = await dynamicContent();
+    setContent(result);
+  };
+
+  const handleFeatureToggle = () => {
+    setToggle(!toggle());
+  };
+
+  const handleUserTags = async () => {
+    const result = await userTags();
+    setTags(result);
+  };
+
+  return (
+    <>
+      <div id="adminId">
+        <button onClick={handleDynamicContent}>Load Dynamic Content</button>
+        <div>{content()}</div>
+        <button onClick={handleFeatureToggle}>Toggle Feature</button>
+        <div>{toggle() ? "Feature is ON" : "Feature is OFF"}</div>
+        <button onClick={handleUserTags}>Load User Tags</button>
+        <ul>
+          {tags().map((tag, index) => (
+            <li key={index}>{tag}</li>
+          ))}
+        </ul>
+      </div>
+    </>
+  );
+};
+
+export default Admin;

@@ -1,0 +1,32 @@
+import { createSignal } from "solid-js";
+import { onMount } from "solid-js";
+import { financeService } from "../services/financeService";
+
+const Finance = () => {
+  const [financeData, setFinanceData] = createSignal(null);
+
+  onMount(async () => {
+    const data = await financeService.getFinanceData();
+    setFinanceData(data);
+  });
+
+  return (
+    <>
+      <h2>Finance</h2>
+      <div id="financeId">
+        {financeData() && financeData().map((item) => (
+          <div>
+            <p>Purchases: {item.purchases}</p>
+            <p>Free Claims: {item.freeClaims}</p>
+            <p>Redemptions: {item.redemptions}</p>
+            <p>Prizes: {item.prizes}</p>
+            <p>Campaign Offers: {item.campaignOffers}</p>
+            <p>Product Offers: {item.productOffers}</p>
+          </div>
+        ))}
+      </div>
+    </>
+  );
+};
+
+export default Finance;
