@@ -1,0 +1,37 @@
+import { createSignal } from "solid-js";
+import { activityService } from "../services/activityService";
+
+const Activity = () => {
+  const [activityData, setActivityData] = createSignal(null);
+
+  const fetchActivityData = async () => {
+    const data = await activityService.getActivityData();
+    setActivityData(data);
+  };
+
+  createEffect(() => {
+    fetchActivityData();
+  });
+
+  return (
+    <>
+      <h2>Activity</h2>
+      <div id="activityId">
+        {activityData() && activityData().map((activity, index) => (
+          <div key={index}>
+            <p>Logins: {activity.logins}</p>
+            <p>Transactions: {activity.transactions}</p>
+            <p>Picks: {activity.picks}</p>
+            <p>Contests: {activity.contests}</p>
+            <p>Blackjack: {activity.blackjack}</p>
+            <p>Stud Poker: {activity.studPoker}</p>
+            <p>Hold'em Poker: {activity.holdemPoker}</p>
+            <p>Roulette: {activity.roulette}</p>
+          </div>
+        ))}
+      </div>
+    </>
+  );
+};
+
+export default Activity;

@@ -1,0 +1,56 @@
+import { createSignal } from "solid-js";
+import { userManagementService } from "../services/userManagementService";
+
+const UserManagement = () => {
+  const [users, setUsers] = createSignal([]);
+
+  const fetchUsers = async () => {
+    const response = await userManagementService.getAllUsers();
+    setUsers(response.data);
+  };
+
+  createEffect(() => {
+    fetchUsers();
+  });
+
+  return (
+    <>
+      <h1>User Management</h1>
+      <div id="userManagement">
+        {users().map((user) => (
+          <div id={`user-${user.id}`} key={user.id}>
+            <h2>{user.name}</h2>
+            <p>{user.email}</p>
+            <button onClick={() => userManagementService.sendToast(user.id)}>
+              Send Toast
+            </button>
+            <button onClick={() => userManagementService.sendSMS(user.id)}>
+              Send SMS
+            </button>
+            <button
+              onClick={() =>
+                userManagementService.creditAccount(user.id, "promo-package-1")
+              }
+            >
+              Credit Account
+            </button>
+            <button onClick={() => userManagementService.viewKYCDocuments(user.id)}>
+              View KYC Documents
+            </button>
+            <button onClick={() => userManagementService.viewFinance(user.id)}>
+              View Finance
+            </button>
+            <button onClick={() => userManagementService.viewActivity(user.id)}>
+              View Activity
+            </button>
+            <button onClick={() => userManagementService.viewSummary(user.id)}>
+              View Summary
+            </button>
+          </div>
+        ))}
+      </div>
+    </>
+  );
+};
+
+export default UserManagement;

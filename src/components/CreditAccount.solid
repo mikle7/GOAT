@@ -1,0 +1,33 @@
+import { createSignal } from "solid-js";
+import { creditAccountService } from "../services/creditAccountService";
+
+const CreditAccount = () => {
+  const [creditAccount, setCreditAccount] = createSignal({});
+
+  const creditUserAccount = async (userId, bitsPackage) => {
+    const response = await creditAccountService.creditAccount(userId, bitsPackage);
+    setCreditAccount(response.data);
+  };
+
+  return (
+    <div id="creditAccountId">
+      <h2>Credit Account</h2>
+      <form onSubmit={(e) => {
+        e.preventDefault();
+        creditUserAccount(e.target.userId.value, e.target.bitsPackage.value);
+      }}>
+        <label for="userId">User ID:</label>
+        <input type="text" id="userId" name="userId" required />
+        <label for="bitsPackage">Bits Package:</label>
+        <input type="text" id="bitsPackage" name="bitsPackage" required />
+        <input type="submit" value="Credit Account" />
+      </form>
+      <div>
+        <h3>Account Credited with:</h3>
+        <p>{creditAccount().bitsPackage}</p>
+      </div>
+    </div>
+  );
+};
+
+export default CreditAccount;

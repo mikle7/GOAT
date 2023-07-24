@@ -1,0 +1,38 @@
+import { createSignal } from "solid-js";
+import { sendSMS } from "../services/smsService";
+
+const SMS = () => {
+  const [smsMessage, setSmsMessage] = createSignal("");
+  const [smsId, setSmsId] = createSignal("");
+
+  const handleSendSMS = async () => {
+    const response = await sendSMS(smsId(), smsMessage());
+    if (response.status === 200) {
+      setSmsMessage("");
+      setSmsId("");
+    }
+  };
+
+  return (
+    <>
+      <div id="sms-container">
+        <label for="sms-id">SMS ID:</label>
+        <input
+          id="sms-id"
+          type="text"
+          value={smsId()}
+          onInput={(e) => setSmsId(e.currentTarget.value)}
+        />
+        <label for="sms-message">Message:</label>
+        <textarea
+          id="sms-message"
+          value={smsMessage()}
+          onInput={(e) => setSmsMessage(e.currentTarget.value)}
+        />
+        <button onClick={handleSendSMS}>Send SMS</button>
+      </div>
+    </>
+  );
+};
+
+export default SMS;

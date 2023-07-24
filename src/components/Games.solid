@@ -1,0 +1,34 @@
+import { createSignal } from "solid-js";
+import { gamesService } from "../services/gamesService";
+
+const Games = () => {
+  const [games, setGames] = createSignal([]);
+
+  const fetchGames = async () => {
+    const response = await gamesService.fetchGames();
+    setGames(response.data);
+  };
+
+  createEffect(() => {
+    fetchGames();
+  });
+
+  return (
+    <>
+      <h2>Games</h2>
+      <div id="gamesId">
+        {games().map((game) => (
+          <div key={game.id}>
+            <h3>{game.name}</h3>
+            <p>{game.description}</p>
+            <button onClick={() => gamesService.pickSpecials(game.id)}>Pick Specials</button>
+            <button onClick={() => gamesService.contests(game.id)}>Contests</button>
+            <button onClick={() => gamesService.leagues(game.id)}>Leagues</button>
+          </div>
+        ))}
+      </div>
+    </>
+  );
+};
+
+export default Games;

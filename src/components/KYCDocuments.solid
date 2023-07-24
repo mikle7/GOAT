@@ -1,0 +1,32 @@
+import { createSignal } from "solid-js";
+import { KYCDocumentsSchema } from "../services/kycDocumentsService";
+
+function KYCDocuments() {
+  const [kycDocuments, setKYCDocuments] = createSignal(KYCDocumentsSchema);
+
+  const viewKYCDocuments = async () => {
+    try {
+      const response = await axios.get("/api/kyc-documents");
+      setKYCDocuments(response.data);
+    } catch (error) {
+      console.error("Failed to fetch KYC documents", error);
+    }
+  };
+
+  return (
+    <div id="kycDocumentsId">
+      <h2>KYC Documents</h2>
+      <button onClick={viewKYCDocuments}>View KYC Documents</button>
+      <div>
+        {kycDocuments().map((document) => (
+          <div key={document.id}>
+            <h3>{document.title}</h3>
+            <p>{document.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default KYCDocuments;

@@ -1,0 +1,31 @@
+import { createSignal } from "solid-js";
+import { summaryService } from "../services/summaryService";
+
+const Summary = () => {
+  const [summary, setSummary] = createSignal({});
+
+  const fetchSummary = async () => {
+    const response = await summaryService.getSummary();
+    setSummary(response.data);
+  };
+
+  createEffect(() => {
+    fetchSummary();
+  });
+
+  return (
+    <>
+      <h2>Summary</h2>
+      <div id="summaryId">
+        <p>Bank cards: {summary().bankCards}</p>
+        <p>Play stats: {summary().playStats}</p>
+        <p>VIP Reporting: {summary().vipReporting}</p>
+        <p>Notifications: {summary().notifications}</p>
+        <p>Leagues: {summary().leagues}</p>
+        <p>Zendesk tickets: {summary().zendeskTickets}</p>
+      </div>
+    </>
+  );
+};
+
+export default Summary;
